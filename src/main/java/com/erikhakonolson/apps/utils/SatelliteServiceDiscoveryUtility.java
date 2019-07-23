@@ -41,7 +41,6 @@ public class SatelliteServiceDiscoveryUtility {
 		
 		orbitalStringArrayList = new ArrayList<String>();
 		
-//		orbitalStringArrayList = smartboxChassisState.getOrbitalStringArrayList();
 		
 		System.out.println("");
 		System.out.println("Initiating satellite service discovery!");
@@ -96,13 +95,13 @@ public class SatelliteServiceDiscoveryUtility {
 		int currentColumn = 0;
 		
 		//Iterate through the contents of each row
-		for (int i = 0; i < columns.size(); i++) {
+		for (Element column : columns) {
 			
 			//Some rows contain a "colspan" element that spans multiple columns
 			//We must adjust our count by its size if one is present
-			if (columns.get(i).attr("colspan") != null &&
-					columns.get(i).attr("colspan").length() > 0) {
-				currentColumn += Integer.parseInt(columns.get(i).attr("colspan")) - 1;
+			if (column.attr("colspan") != null &&
+					column.attr("colspan").length() > 0) {
+				currentColumn += Integer.parseInt(column.attr("colspan")) - 1;
 				
 				//Don't shift out of usable territory
 				//One less than length for 0 reference and one less than length for currentColumn++ later
@@ -122,23 +121,23 @@ public class SatelliteServiceDiscoveryUtility {
 				case 14:
 				
 				case 16:
-					currentContent = columns.get(i).text();
+					currentContent = column.text();
 					break;
 				
 				case 4:
 				case 8:
 				case 12:
 	
-					if (columns.get(i).html().contains("hd") 
-							&& !columns.get(i).html().contains("hd3")) {
+					if (column.html().contains("hd") 
+							&& !column.html().contains("hd3")) {
 						currentContent = "HD";
-					} else if (columns.get(i).html().contains("sd")) {
+					} else if (column.html().contains("sd")) {
 						currentContent = "SD";
-					} else if (columns.get(i).html().contains("vod")){
+					} else if (column.html().contains("vod")){
 						currentContent = "VOD";
-					} else if (columns.get(i).html().contains("aud")){
+					} else if (column.html().contains("aud")){
 						currentContent = "AUD"; 
-					} else if (columns.get(i).html().contains("itv")){
+					} else if (column.html().contains("itv")){
 						currentContent = "ITV";
 					} else {
 						currentContent = "UNKNWN";
@@ -148,17 +147,17 @@ public class SatelliteServiceDiscoveryUtility {
 					//the suid to check if the service is valid
 					
 					//"HR" services seem to not be working so we need to track this
-					if (columns.get(i).html().contains("HR")) {
+					if (column.html().contains("HR")) {
 						currentContent += " HR";
 					}
 					
 					//HD services with the "O" modifier seem to not be working so we need to track this
-					if (columns.get(i).html().contains("O")) {
+					if (column.html().contains("O")) {
 						currentContent += " O";
 					}
 					
 					//The 'D' on the HD ones can only be encrypted
-					if (columns.get(i).html().contains(" D") && currentContent.contains("HD")) {
+					if (column.html().contains(" D") && currentContent.contains("HD")) {
 						currentContent += " ENCRYPTONLY";
 					}
 					
@@ -168,7 +167,7 @@ public class SatelliteServiceDiscoveryUtility {
 				case 9:
 				case 13:
 					//s = s.replaceAll("[^\\x00-\\x7F]", ""); //replaces all unicode 'black diamond questionmarks'
-					currentContent = columns.get(i).text().replaceAll("[^\\x00-\\x7F]", "");
+					currentContent = column.text().replaceAll("[^\\x00-\\x7F]", "");
 					if (currentContent == null || currentContent.isEmpty()) {
 						currentContent = "-";
 					}
@@ -252,18 +251,6 @@ public class SatelliteServiceDiscoveryUtility {
 			}
 			
 			String orbital = rowContent[baseOffset + 1];
-			
-//			if (!orbitalStringArrayList.contains(orbital)) {
-//				System.err.println("Caught a bad service, orbital " + orbital 
-//						+ " is not in our list of active orbitals... ("
-//						+ orbitalStringArrayList.get(0) + ", "
-//						+ orbitalStringArrayList.get(1) + ", "
-//						+ orbitalStringArrayList.get(2) + ", "
-//						+ orbitalStringArrayList.get(3) + ")");
-//				continue;
-//			}
-			
-			
 			String transponder = rowContent[baseOffset + 2];
 			
 			DiscoveredSatelliteService service = new DiscoveredSatelliteService(serviceId,
