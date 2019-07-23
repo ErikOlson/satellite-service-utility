@@ -2,6 +2,5 @@ com/erikhakonolson/apps/utils/DishServiceFormat.class
 com/erikhakonolson/apps/utils/DiscoveredSatelliteService.class
 com/erikhakonolson/apps/utils/SatelliteServiceDiscoveryUtility.class
 com/erikhakonolson/apps/utils/DishOrbital.class
-com/erikhakonolson/apps/SatelliteServiceDiscoveryDemo.class
-com/erikhakonolson/apps/utils/DishOrbital$1.class
 com/erikhakonolson/apps/App.class
+com/erikhakonolson/apps/SatelliteServiceDiscoveryDemo.class
