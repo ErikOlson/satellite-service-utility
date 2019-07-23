@@ -26,14 +26,10 @@ public class DiscoveredSatelliteService {
 		//so added extra cases (ie. "118" also for "118.7")
 		switch (orbital) {
 			case "61.5":
-				this.orbital = DishOrbital.EAST_61_5;
-				break;
 			case "61":
 				this.orbital = DishOrbital.EAST_61_5;
 				break;
 			case "72.7":
-				this.orbital = DishOrbital.EAST_72_7;
-				break;
 			case "72":
 				this.orbital = DishOrbital.EAST_72_7;
 				break;
@@ -44,8 +40,6 @@ public class DiscoveredSatelliteService {
 				this.orbital = DishOrbital.WEST_110;
 				break;
 			case "118.7":
-				this.orbital = DishOrbital.WEST_118_7;
-				break;
 			case "118":
 				this.orbital = DishOrbital.WEST_118_7;
 				break;
